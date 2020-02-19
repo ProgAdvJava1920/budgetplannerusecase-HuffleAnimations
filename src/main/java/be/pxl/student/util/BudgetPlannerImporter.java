@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  */
 public class BudgetPlannerImporter {
 	private static final Logger LOGGER = LogManager.getLogger(BudgetPlannerImporter.class);
-	private PathMatcher csvPathMatcher = FileSystems.getDefault().getPathMatcher("glob: **/*.csv");
+	private PathMatcher csvPathMatcher = FileSystems.getDefault().getPathMatcher("glob:**/*.csv");
 
 	public void importCsv(Path path) {
 		if (!csvPathMatcher.matches(path)) {
@@ -35,10 +35,13 @@ public class BudgetPlannerImporter {
 			String line = null;
 			Payment payment;
 			Account account;
+
+			reader.readLine();
+
 			while ((line = reader.readLine()) != null) {
-				String[] values = line.split(",");
 				//payment = new Payment(LocalDateTime.);
-				System.out.println(line);
+				AccountMapper mapper = new AccountMapper();
+				System.out.println(mapper.map(line).toString());
 			}
 		}
 		catch (IOException ex) {
