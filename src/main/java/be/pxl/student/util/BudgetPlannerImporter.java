@@ -47,5 +47,9 @@ public class BudgetPlannerImporter {
 		catch (IOException ex) {
 			LOGGER.fatal("Something went wrong while reading the file: {}", path);
 		}
+		catch (Exception ex)
+		{
+			LOGGER.fatal("Something went wrong while parsing the account: {}", ex.getMessage());
+		}
 	}
 }
