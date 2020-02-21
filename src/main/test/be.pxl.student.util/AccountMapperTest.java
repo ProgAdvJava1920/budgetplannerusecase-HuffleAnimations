@@ -6,17 +6,19 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class AccountMapperTest {
 	private String validLine = "Jos,BE69771770897312,BE25169011561250,Sun Feb 16 02:35:43 CET 2020,2904.33,EUR,Autem " +
 			"consequatur dolores et reprehenderit modi ab.";
+	private String inValidLine = "Jos,BE69771770897312,BE25169011561250Sun Feb 16 02:35:43 CET 2020,2904.33,EUR,Autem " +
+			"consequatur dolores et reprehenderit modi ab.";
 	private AccountMapper mapper = new AccountMapper();
 
 	@Test
-	public void aValidLineIsMappedToAnAccount() {
+	public void aValidLineIsMappedToAnAccount() throws Exception
+	{
 		Account result = mapper.map(validLine);
 		assertNotNull(result);
 		assertEquals("Jos", result.getName());
@@ -27,5 +29,10 @@ public class AccountMapperTest {
 		assertEquals("EUR", resultPayment.getCurrency());
 		assertEquals(2904.33, resultPayment.getAmount(), 0.001);
 		assertEquals("Autem consequatur dolores et reprehenderit modi ab.", resultPayment.getDetail());
+	}
+
+	@Test
+	public void anInvalidLineThrowsAnException() {
+		assertThrows(Exception.class, () -> mapper.map(inValidLine));
 	}
 }
