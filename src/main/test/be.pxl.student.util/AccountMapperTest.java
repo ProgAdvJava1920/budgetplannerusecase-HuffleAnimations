@@ -33,6 +33,6 @@ public class AccountMapperTest {
 
 	@Test
 	public void anInvalidLineThrowsAnException() {
-		assertThrows(Exception.class, () -> mapper.map(inValidLine));
+		assertThrows(InvalidPaymentException.class, () -> mapper.map(inValidLine));
 	}
 }

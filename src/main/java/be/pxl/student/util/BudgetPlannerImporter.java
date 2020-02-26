@@ -37,11 +37,15 @@ public class BudgetPlannerImporter {
 			Account account;
 
 			reader.readLine();
+			AccountMapper mapper = new AccountMapper();
 
 			while ((line = reader.readLine()) != null) {
 				//payment = new Payment(LocalDateTime.);
-				AccountMapper mapper = new AccountMapper();
-				System.out.println(mapper.map(line).toString());
+				try {
+					LOGGER.debug(mapper.map(line).toString());
+				} catch (InvalidPaymentException ex) {
+					LOGGER.error("Error while maping line: {}", ex.getMessage());
+				}
 			}
 		}
 		catch (IOException ex) {
