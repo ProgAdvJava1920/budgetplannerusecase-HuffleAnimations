@@ -12,7 +12,7 @@ public class Account {
     private int id;
     private String IBAN;
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "accountId")
     private List<Payment> payments;
 
     public int getId()
